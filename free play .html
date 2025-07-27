@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStream - Play Instantly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --footer-bg: #2d3436;
+            --footer-text: #f5f6fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #a29bfe;
+            --secondary-color: #6c5ce7;
+            --text-color: #f5f6fa;
+            --bg-color: #1e272e;
+            --card-bg: #2d3436;
+            --header-bg: #2d3436;
+            --footer-bg: #1e272e;
+            --footer-text: #f5f6fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+            transform: rotate(30deg);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .game-description {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .play-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .play-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            color: var(--footer-text);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">GameStream</a>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Games</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Play Instantly, No Downloads</h1>
+        <p>Enjoy your favorite games directly in your browser with our cloud gaming platform. No installation required!</p>
+    </section>
+
+    <section class="games-container">
+        <div class="games-grid">
+            <!-- Game 1 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/6c5ce7/ffffff?text=Free+Fire" alt="Free Fire" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">Free Fire</h3>
+                    <p class="game-description">Battle royale game where 50 players fight to be the last one standing. Fast-paced action with 10-minute matches.</p>
+                    <a href="https://ff.garena.com/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Game 2 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/fd79a8/ffffff?text=eFootball" alt="eFootball" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">eFootball 2024</h3>
+                    <p class="game-description">The next generation soccer experience with realistic gameplay and official team licenses. Play against players worldwide.</p>
+                    <a href="https://www.konami.com/efootball/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Game 3 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/0984e3/ffffff?text=Among+Us" alt="Among Us" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">Among Us</h3>
+                    <p class="game-description">Multiplayer game of teamwork and betrayal. Crewmates work to complete tasks while impostors sabotage and eliminate them.</p>
+                    <a href="https://www.innersloth.com/games/among-us/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Game 4 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/00b894/ffffff?text=Roblox" alt="Roblox" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">Roblox</h3>
+                    <p class="game-description">Immersive 3D universe with endless experiences. Play, create, and share games with millions of players worldwide.</p>
+                    <a href="https://www.roblox.com/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Game 5 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/e17055/ffffff?text=Fortnite" alt="Fortnite" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">Fortnite</h3>
+                    <p class="game-description">Battle royale, creative, and zero build modes. Join 100 players fighting to be the last one standing.</p>
+                    <a href="https://www.fortnite.com/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Game 6 -->
+            <div class="game-card">
+                <img src="https://via.placeholder.com/400x225/00cec9/ffffff?text=Minecraft" alt="Minecraft" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">Minecraft</h3>
+                    <p class="game-description">Sandbox game where you can build, explore, and survive in blocky, procedurally generated 3D worlds.</p>
+                    <a href="https://www.minecraft.net/" class="play-btn" target="_blank">Play Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">Games</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+        </div>
+        <p class="copyright">© 2023 GameStream. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Toggle icon and save theme preference
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Game card animation on scroll
+        const gameCards = document.querySelectorAll('.game-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        gameCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
